@@ -13,6 +13,7 @@ import {
 import NewRequest from "./Institute/NewRequest.jsx";
 import MyRequest from "./Student/MyRequest.jsx";
 import Routes from "./Routes/Routes.jsx";
+import MyRequestInst from "./Institute/MyRequestInst.jsx";
 
 class App extends Component {
   state = { storageValue: 0, web3: null, accounts: null, contract: null };
@@ -47,7 +48,11 @@ class App extends Component {
   };
 
   runExample = async () => {
-    const { accounts, contract } = this.state;
+    const web3 = await getWeb3();
+
+    // Use web3 to get the user's accounts.
+    const y = await web3.eth;
+    
 
     // // Stores a given value, 5 by default.
     // await contract.methods.set(120).send({ from: accounts[0] });
@@ -72,7 +77,7 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <div style={{ margin: "50px" }}>
+          <div style={{ margin: "50px", height: "100px" }}>
             {" "}
             <Routes />
             <Switch>
@@ -107,6 +112,15 @@ class App extends Component {
                 path="/my"
                 component={() => (
                   <MyRequest
+                    accounts={this.state.accounts}
+                    contract={this.state.contract}
+                  />
+                )}
+              />{" "}
+              <Route
+                path="/myi"
+                component={() => (
+                  <MyRequestInst
                     accounts={this.state.accounts}
                     contract={this.state.contract}
                   />

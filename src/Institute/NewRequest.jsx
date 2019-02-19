@@ -2,7 +2,7 @@ import React, { Component } from "react";
 class NewRequest extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { reqisent: [] };
   }
 
   newRequestCreator = async () => {
@@ -11,8 +11,22 @@ class NewRequest extends Component {
     await contract.methods
       .NewRequest(this.state.stud)
       .send({ from: accounts[0] });
+
+    this.requestiSen();
   };
 
+  requestiSen = async () => {
+    const { accounts, contract } = this.props;
+
+
+
+    
+    var q = await contract.methods.requestiSent(accounts[0]).call();
+
+    console.log(q);
+    this.setState({ reqisent: q });
+    console.log(this.state);
+  };
   render() {
     return (
       <div>
@@ -24,6 +38,13 @@ class NewRequest extends Component {
           }}
         />
         <button onClick={this.newRequestCreator}>Click</button>
+        <div>
+          <br />
+
+          {this.state.reqisent.map(req => {
+            return <div>{req}</div>;
+          })}
+        </div>
       </div>
     );
   }

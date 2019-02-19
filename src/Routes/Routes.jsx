@@ -12,6 +12,7 @@ class Routes extends Component {
         <Link to="upload">Upload </Link>
         <Link to="/my">MY </Link>
         <Link to="/new">NEW </Link>
+        <Link to="/myi">MYI </Link>
       </div>
     );
   }

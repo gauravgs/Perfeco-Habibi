@@ -6,6 +6,7 @@ class MyRequest extends Component {
     const { contract, accounts } = this.props;
     var a = await contract.methods.getRequestList(accounts[0]).call();
     this.setState({ list: a });
+    console.log(this.state);
   };
 
   check = async () => {
