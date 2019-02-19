@@ -27,7 +27,7 @@ class MultiSig extends Component {
     console.log(contract);
 
     await contract.methods
-      .createNewMultiSigbyUser(accounts[0])
+      .createNewMultiSigUser(accounts[0])
       .send({ from: accounts[0] });
   };
 

@@ -40,6 +40,14 @@ class Upload extends Component {
       this.setState({ aadhar: ipfsHash[0].hash });
     });
   };
+  newUpload = async () => {
+    const { accounts, contract } = this.props;
+
+    await await contract.methods
+      .createUploadRequestbyUser(true, this.state.aadhar)
+      .send({ from: accounts[0] });
+  };
+
   runExample = async () => {
     // const { accounts, contract } = this.state;
     // // Stores a given value, 5 by default.
@@ -67,38 +75,45 @@ class Upload extends Component {
     return (
       <div className="App">
         <div>
-          <Grid container>
-            <Grid item md={3} />
-            <Grid item md={5}>
-              <Card>
-                <Grid style={{ padding: "6px" }} container>
+          <Grid container spacing={24}>
+            <Grid item xs={12}>
+              <Card
+                style={{
+                  padding: "5px",
+                  marginTop: "5px"
+                }}
+              >
+                <Grid container>
                   <Grid item md={6}>
-                    <Typography
-                      variant="headline"
-                      style={{ marginLeft: "20px" }}
-                    >
-                      Aadhar Card{" "}
-                    </Typography>
+                    <h4> Aadhar</h4>
                   </Grid>
-                  <Grid item md={2} />
-
-                  <Grid item md={2}>
-                    {" "}
-                    <Button variant="raised" color="primary" type="file">
-                      <input type="file" onChange={this.captureFile} />
+                  <Grid item md={3}>
+                    <Button
+                      onClick={() => {
+                        if (this.state.aadhar.length > 0) {
+                          window.open(
+                            `https://gateway.ipfs.io/ipfs/${this.state.aadhar}`
+                          );
+                        } else {
+                          window.alert("NULL");
+                        }
+                      }}
+                      newUpload>
+                      View{" "}
                     </Button>
                   </Grid>
-                  <Grid item md={2}>
-                    {" "}
-                    <Button variant="outlined" color="white">
-                      View
+                  <Grid item md={3}>
+                    <Button>
+                      <input onChange={this.captureFile} type="file" />{" "}
                     </Button>
                   </Grid>
                 </Grid>
+
+                <Button onClick={this.newUpload}>
+                  Create A New Document Change/Upload Request
+                </Button>
               </Card>
             </Grid>
-            <button onClick={this.hih}>Upload</button>
-            <Link to="/a">NEXt </Link>{" "}
           </Grid>
         </div>{" "}
       </div>

@@ -7,7 +7,7 @@ class Routes extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={{ padding: "50px" }}>
         <Link to="/create">Create </Link>
         <Link to="upload">Upload </Link>
         <Link to="/my">MY </Link>
